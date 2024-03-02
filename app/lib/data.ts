@@ -14,12 +14,11 @@ export async function fetchAllGoals() {
 export async function fetchWeeklyGoals() {
   try {
     const data = await sql<Goal>`
-        SELECT *
-        FROM Goals
-        WHERE TargetDate BETWEEN DATE_TRUNC('week', CURRENT_DATE) AND 
-        (DATE_TRUNC('week', CURRENT_DATE) + '6 days'::interval);
-        `;
-        console.log(data.rows);
+SELECT *
+FROM Goals
+WHERE TargetDate BETWEEN DATE_TRUNC('week', CURRENT_DATE AT TIME ZONE 'CET') AND 
+(DATE_TRUNC('week', CURRENT_DATE AT TIME ZONE 'CET') + interval '6 days');
+`;
     return data.rows;
   } catch (error) {
     console.error('Database Error:', error);

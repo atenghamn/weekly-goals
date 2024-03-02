@@ -6,10 +6,10 @@ export type User = {
   }
   
   export type Goal = {
-    GoalId: number;
-    GoalName: string;
-    Description: string;
-    UserID: number;
-    TargetDate: Date;
-    IsCompleted: boolean;
+    goalid: number;
+    goalname: string;
+    description: string;
+    userid: number;
+    targetdate: Date;
+    iscompleted: boolean;
   }
