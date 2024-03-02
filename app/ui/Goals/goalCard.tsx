@@ -13,7 +13,7 @@ export default function GoalCard({ goal }: { goal: Goal }) {
     >
       <p className="text-tremor-default text-tremor-content dark:text-dark-tremor-content">{goal.GoalName}</p>
       <p className="text-3xl text-tremor-content-strong dark:text-dark-tremor-content-strong font-semibold">{goal.Description}</p>
-      <Select defaultValue={goal.IsCompleted.toString()}>
+      <Select defaultValue={goal.IsCompleted?.toString()}>
         <SelectItem value="false">In Progress</SelectItem>
         <SelectItem value="true">Done</SelectItem>
       </Select>
