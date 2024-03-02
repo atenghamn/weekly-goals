@@ -19,6 +19,7 @@ export async function fetchWeeklyGoals() {
         WHERE TargetDate BETWEEN DATE_TRUNC('week', CURRENT_DATE) AND 
         (DATE_TRUNC('week', CURRENT_DATE) + '6 days'::interval);
         `;
+        console.log(data.rows);
     return data.rows;
   } catch (error) {
     console.error('Database Error:', error);

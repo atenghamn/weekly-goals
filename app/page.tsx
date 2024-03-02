@@ -1,17 +1,15 @@
-import { Card, Title, Text } from '@tremor/react';
-import Search from './search';
-import GoalsCardCollection from './goalCardCollection';
+import { Card, Title } from '@tremor/react';
+import GoalsCardCollection from './ui/Goals/goalCardCollection';
 import { fetchWeeklyGoals } from './lib/data';
 
 export default async function IndexPage() {
   
   const weeklyGoals = await fetchWeeklyGoals();
+  console.log(weeklyGoals);
 
   return (
     <main className="p-4 md:p-10 mx-auto max-w-7xl">
-      <Title>Users</Title>
-      <Text>A list of users retrieved from a Postgres database.</Text>
-      <Search />
+      <Title>Weekly goals</Title>
       <Card className="mt-6">
         <GoalsCardCollection goals={weeklyGoals} />
       </Card>
