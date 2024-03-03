@@ -23,7 +23,6 @@ export async function setGoal(formData: FormData) {
       VALUES (${title}, ${description}, 1, ${date})
     `;
 
-    revalidatePath('/dashboard');
     redirect('/');
 }
 
@@ -33,12 +32,10 @@ export async function updateGoal(isDone: boolean, id: number) {
   SET IsCompleted = ${isDone}
   WHERE GoalId = ${id};
   `;
-  revalidatePath('/dashboard');
   redirect('/');
 }
 
 export async function deleteGoal(id: number) {
   await sql`DELETE FROM Goals WHERE GoalId = ${id}`;
-  revalidatePath('/dashboard');
   redirect('/');
 }
