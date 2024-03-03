@@ -1,24 +1,58 @@
+'use client'
 
-import { Card, Select, SelectItem } from '@tremor/react';
+import { Button, Card } from '@tremor/react';
 import { Goal } from '../../lib/definitions';
-
-
+import { updateGoal, deleteGoal } from '../../lib/actions';
+import { redirect } from 'next/navigation';
+import { Icon } from '@tremor/react';
+import { TrashIcon } from '@heroicons/react/24/solid';
+import { clsx } from 'clsx';
 
 export default function GoalCard({ goal }: { goal: Goal }) {
-  console.log(goal)
+  const handleMarkAsDone = async () => {
+    try {
+      const status = !goal.iscompleted;
+      await updateGoal(status, goal.goalid);
+      redirect('/');
+    } catch (error) {
+      console.error('Failed to update goal:', error);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      await deleteGoal(goal.goalid);
+      redirect('/');
+    } catch (error) {
+      console.error('Failed to update goal:', error);
+    }
+  };
 
   return (
     <Card
       className="mx-auto max-w-xs"
       decoration="top"
-      decorationColor="indigo"
+      decorationColor={goal.iscompleted ? "emerald" : "indigo"}
     >
-      <p className="text-3xl text-tremor-content dark:text-dark-tremor-content">{goal.goalname}</p>
-      <p className="text-tremor-content-strong dark:text-dark-tremor-content-strong font-semibold">{goal.description}</p>
-      <Select defaultValue={goal.iscompleted?.toString()}>
-        <SelectItem value="false">In Progress</SelectItem>
-        <SelectItem value="true">Done</SelectItem>
-      </Select>
+      <p className={clsx(
+        "text-3xl",
+        "text-tremor-content",
+        "dark:text-dark-tremor-content"
+      )}>{goal.goalname}</p>
+      <p className={clsx(
+        "text-tremor-content-strong",
+        "dark:text-dark-tremor-content-strong",
+        "font-semibold"
+      )}>{goal.description}</p>
+      <div className={clsx(
+        "flex",
+        "justify-between",
+      )}>
+        <Button variant='primary' color='emerald' onClick={handleMarkAsDone}>Done</Button>
+        <Button onClick={handleDelete} color="slate">
+          <Icon icon={TrashIcon} color='rose' size="sm" />
+        </Button>
+      </div>
     </Card>
   );
 }

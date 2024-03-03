@@ -1,5 +1,6 @@
 import { sql } from '@vercel/postgres';
-import { User, Goal } from './definitions';
+import { Goal } from './definitions';
+import { revalidatePath } from 'next/cache';
 
 export async function fetchAllGoals() {
   try {
@@ -13,13 +14,14 @@ export async function fetchAllGoals() {
 
 export async function fetchWeeklyGoals() {
   try {
-    const data = await sql<Goal>`
+    const { rows } = await sql<Goal>`
 SELECT *
 FROM Goals
 WHERE TargetDate BETWEEN DATE_TRUNC('week', CURRENT_DATE AT TIME ZONE 'CET') AND 
 (DATE_TRUNC('week', CURRENT_DATE AT TIME ZONE 'CET') + interval '6 days');
 `;
-    return data.rows;
+    revalidatePath('/');
+    return rows;
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch Goals data.');

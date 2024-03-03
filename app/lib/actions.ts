@@ -5,24 +5,40 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 const FormSchema = z.object({
-    title: z.string(),
-    description: z.string()
+  title: z.string(),
+  description: z.string()
+});
+
+const SetGoal = FormSchema.omit({});
+
+export async function setGoal(formData: FormData) {
+  const { title, description } = SetGoal.parse({
+    title: formData.get('title'),
+    description: formData.get('description'),
   });
-  
-  const SetGoal = FormSchema.omit({});
+  const date = new Date().toISOString().split('T')[0];
 
-  export async function setGoal(formData: FormData) {
-    revalidatePath('/dashboard');
-    redirect('/dashboard');
-    
-    const { title, description } = SetGoal.parse({
-        title: formData.get('title'),
-        description: formData.get('description'),
-      });
-      const date = new Date().toISOString().split('T')[0];
-
-      await sql`
+  await sql`
       INSERT INTO Goals (GoalName, Description, UserId, TargetDate)
       VALUES (${title}, ${description}, 1, ${date})
     `;
+
+    revalidatePath('/dashboard');
+    redirect('/');
+}
+
+export async function updateGoal(isDone: boolean, id: number) {
+  await sql`
+  UPDATE Goals
+  SET IsCompleted = ${isDone}
+  WHERE GoalId = ${id};
+  `;
+  revalidatePath('/dashboard');
+  redirect('/');
+}
+
+export async function deleteGoal(id: number) {
+  await sql`DELETE FROM Goals WHERE GoalId = ${id}`;
+  revalidatePath('/dashboard');
+  redirect('/');
 }
