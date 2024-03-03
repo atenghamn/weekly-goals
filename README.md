@@ -1,8 +1,20 @@
-A simple dashboard project for tracking weekly goals 
+# Weekly Goals
+
+> Super simple planner for setting weekly goals 
+
+## Introduction
+
+A brief introduction that explains **what** the project is and **why** it's useful. Highlight the problem your project solves and what makes it stand out from the crowd.
+
+## Features
+
+- **Set goals:** Set goals to achive for the week.
+- **Statistics:** Track your progress.
 
 
-##To set up the db 
+## Quick Start
 
+### To set up the db 
 
 If not using vercel change the db querys
 
@@ -33,4 +45,25 @@ CREATE TABLE Goals (
         FOREIGN KEY (UserID)
         REFERENCES Users(Id)
 );
-```
+
+```bash
+# Clone the repository
+git clone https://github.com/atenghamn/weekly-goals.git
+
+# Navigate to the directory
+cd weekly-goals
+
+# Install dependencies
+npm install
+
+# Start the project
+npm run dev
+-> localhost:3000
+
+##TODO
+
+- [ ] CSS - it looks like shit...
+- [ ] Set up statistics
+- [ ] Fix so you can plan ahead
+- [ ] User handling
+
