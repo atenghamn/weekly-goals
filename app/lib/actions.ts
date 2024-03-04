@@ -22,7 +22,7 @@ export async function setGoal(formData: FormData) {
       INSERT INTO Goals (GoalName, Description, UserId, TargetDate)
       VALUES (${title}, ${description}, 1, ${date})
     `;
-
+    revalidatePath('/')
     redirect('/');
 }
 
@@ -32,10 +32,12 @@ export async function updateGoal(isDone: boolean, id: number) {
   SET IsCompleted = ${isDone}
   WHERE GoalId = ${id};
   `;
+  revalidatePath('/')
   redirect('/');
 }
 
 export async function deleteGoal(id: number) {
   await sql`DELETE FROM Goals WHERE GoalId = ${id}`;
+  revalidatePath('/')
   redirect('/');
 }

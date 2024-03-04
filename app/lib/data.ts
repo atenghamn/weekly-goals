@@ -21,8 +21,6 @@ WHERE TargetDate BETWEEN DATE_TRUNC('week', CURRENT_DATE AT TIME ZONE 'CET') AND
 (DATE_TRUNC('week', CURRENT_DATE AT TIME ZONE 'CET') + interval '6 days');
 `;
 
-revalidatePath('/', 'layout');
-
 return rows;
   } catch (error) {
     console.error('Database Error:', error);
