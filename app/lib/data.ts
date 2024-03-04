@@ -1,6 +1,5 @@
 import { sql } from '@vercel/postgres';
 import { Goal } from './definitions';
-import { revalidatePath } from 'next/cache';
 
 export async function fetchAllGoals() {
   try {

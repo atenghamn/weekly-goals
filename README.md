@@ -49,18 +49,22 @@ CREATE TABLE Goals (
 ```bash
 # Clone the repository
 git clone https://github.com/atenghamn/weekly-goals.git
-
-# Navigate to the directory
+```
+### Navigate to the directory
+```
 cd weekly-goals
-
-# Install dependencies
+```
+### Install dependencies
+```
 npm install
-
-# Start the project
+```
+### Start the project
+```
 npm run dev
+```
 -> localhost:3000
 
-##TODO
+## TODO
 
 - [ ] CSS - it looks like shit...
 - [ ] Set up statistics
