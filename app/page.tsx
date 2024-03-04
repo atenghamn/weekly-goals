@@ -1,4 +1,4 @@
-import { Button, Card, Title } from '@tremor/react';
+import { Card, Title } from '@tremor/react';
 import GoalsCardCollection from './ui/Goals/goalCardCollection';
 import { fetchWeeklyGoals } from './lib/data';
 
