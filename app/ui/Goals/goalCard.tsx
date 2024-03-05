@@ -30,9 +30,12 @@ export default function GoalCard({ goal }: { goal: Goal }) {
 
   return (
     <Card
-      className="mx-auto max-w-xs"
+      className={clsx(
+        "max-w-xs",
+        "m-4"
+        )}
       decoration="top"
-      decorationColor={goal.iscompleted ? "emerald" : "indigo"}
+      decorationColor={goal.iscompleted ? "teal" : "slate"}
     >
       <p className={clsx(
         "text-3xl",
@@ -48,7 +51,7 @@ export default function GoalCard({ goal }: { goal: Goal }) {
         "flex",
         "justify-between",
       )}>
-        <Button variant='primary' color='emerald' onClick={handleMarkAsDone}>Done</Button>
+        <Button variant='primary' color='teal' onClick={handleMarkAsDone}>Done</Button>
         <Button onClick={handleDelete} color="slate">
           <Icon icon={TrashIcon} color='rose' size="sm" />
         </Button>
