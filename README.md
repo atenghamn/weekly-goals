@@ -66,7 +66,6 @@ npm run dev
 
 ## TODO
 
-- [ ] CSS - it looks like shit...
 - [ ] Set up statistics
 - [ ] Fix so you can plan ahead
 - [ ] User handling
