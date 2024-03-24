@@ -41,7 +41,6 @@ GROUP BY
 ORDER BY
     WeekStart;
     `;
-    console.log(rows);
     return rows;
   } catch (error) {
     console.error('Database Error:', error);

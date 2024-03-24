@@ -1,18 +1,14 @@
 import { LineChart, Card, Title, Text } from "@tremor/react";
 import { fetchGoalFullfillment } from "../lib/data";
 
-
-
-export default function GoalFullfillmentChart() {
-
-
+export default async function GoalFullfillmentChart() {
     // convert the raw data so it is divided into -date, -completedGoals and -total goals
-
-    var rawData = fetchGoalFullfillment();
+    var rawData = await fetchGoalFullfillment();
+    console.log('RAW: ', rawData);
 
     const dataFormatter = (number: number) =>
-    `$${Intl.NumberFormat('sv').format(number).toString()}`;
-  
+        `$${Intl.NumberFormat('sv').format(number).toString()}`;
+
     return (
         <Card className="mt-8">
             <Title>Goal fullfilment</Title>
