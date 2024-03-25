@@ -33,7 +33,8 @@ export async function fetchGoalFullfillment() {
     const { rows } = await sql<Goal>`
     SELECT
     DATE_TRUNC('week', TargetDate AT TIME ZONE 'CET') AS WeekStart,
-    COUNT(*) AS GoalsCount
+    COUNT(*) AS GoalsCount, -- Count of all goals
+    COUNT(*) FILTER (WHERE IsCompleted = true) AS CompletedGoals
 FROM
     Goals
 GROUP BY
