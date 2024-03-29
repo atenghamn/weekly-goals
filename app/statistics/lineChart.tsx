@@ -1,38 +1,41 @@
+"use client";
 import { LineChart, Card, Title, Text } from "@tremor/react";
 import { fetchGoalFullfillment } from "../lib/data";
+import { useEffect, useState } from "react";
+import { Goal } from "../lib/definitions";
 
 export default async function GoalFullfillmentChart() {
-    // convert the raw data so it is divided into -date, -completedGoals and -total goals
-    var rawData = await fetchGoalFullfillment();
-    console.log('RAW: ', rawData);
+    const [rawData, setRawData] = useState<Goal[]>();
 
-    const dataFormatter = (number: number) =>
-        `$${Intl.NumberFormat('sv').format(number).toString()}`;
+    useEffect(() => {
+        async function loadData() {
+            const data = await fetchGoalFullfillment();
+            console.log('Load data', data);
+            setRawData(data);
+        }
 
-    const chartdata = (data: Array<{ WeekStart: string, GoalsCount: number, CompletedGoals: number }>) => {
-        return data.map(({ WeekStart, GoalsCount, CompletedGoals }) => ({
-            week: WeekStart,
-            goals: dataFormatter(GoalsCount),
-            completedGoals: dataFormatter
-        }));
-    };
+        loadData();
+    }, []);
 
+    if (!rawData) {
+        return <div>Loading...</div>;
+    }
 
 return (
+    <>
     <Card className="mt-8">
         <Title>Goal fullfilment</Title>
         <Text>Overview of goals completed for each week</Text>
-        {/* <LineChart
+        <LineChart
             className="h-80"
-            data={chartdata(raw)}
-            index="date"
-            categories={['Goals', 'Fullfilled goals']}
+            data={rawData}
+            index="weeknumber"
+            categories={['goalscount', 'completedgoals']}
             colors={['indigo', 'rose']}
-            valueFormatter={dataFormatter}
-            yAxisWidth={60}
-            onValueChange={(v) => console.log(v)}
-        /> */}
+            yAxisWidth={30}
+        />
 
     </Card>
+    </>
 );
 }

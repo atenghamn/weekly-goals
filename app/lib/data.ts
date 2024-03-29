@@ -32,16 +32,20 @@ export async function fetchGoalFullfillment() {
   try {
     const { rows } = await sql<Goal>`
     SELECT
-    DATE_TRUNC('week', TargetDate AT TIME ZONE 'CET') AS WeekStart,
+    EXTRACT(YEAR FROM TargetDate AT TIME ZONE 'CET') AS Year,
+    EXTRACT(WEEK FROM TargetDate AT TIME ZONE 'CET') AS WeekNumber,
     COUNT(*) AS GoalsCount, -- Count of all goals
     COUNT(*) FILTER (WHERE IsCompleted = true) AS CompletedGoals
 FROM
     Goals
 GROUP BY
-    WeekStart
+    Year,
+    WeekNumber
 ORDER BY
-    WeekStart;
+    Year,
+    WeekNumber;
     `;
+    console.log('Rows:', rows);
     return rows;
   } catch (error) {
     console.error('Database Error:', error);
