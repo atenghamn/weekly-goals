@@ -1,8 +1,15 @@
 import { Grid } from '@tremor/react';
 import LineChart from './lineChart';
 import { fetchGoalFullfillment } from '../lib/data';
+import { auth } from '../ui/auth';
+
 
 export default async function PlaygroundPage() {
+  const session = await auth();
+
+  if (!session) {
+    return <p>You must be logged in</p>;
+  }
 
   const rawData = await fetchGoalFullfillment();
   return (
